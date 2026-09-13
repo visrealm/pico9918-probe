@@ -11,9 +11,9 @@ target's **host bus** the way a real 1980s computer would.
 The [PICO9918](https://github.com/visrealm/pico9918) is a drop-in replacement for
 the TI TMS9918A video display processor, built on an RP2040 or RP2350. It plugs
 into a TI-99/4A, ColecoVision, MSX, NABU, Tatung Einstein and others. Those hosts
-talk to it over a 40-pin bus with two active-low strobes, and until now the only
-way to test that bus was to plug the board into a real computer and look at the
-screen.
+talk to it over a 40-pin bus with two active-low strobes. Without a fixture, the
+only way to exercise that bus is to plug the board into a real computer and look
+at the screen.
 
 ## Why
 

@@ -140,12 +140,13 @@ floating or weakly pulled inputs as calibrated voltage measurements.
 `verify_wiring.py` checks the wire list against independent Pico header
 assignments and original target header placement, checks SWD and the
 optional power connections, and opens both PDF pages with PDFium.
-These are static wiring checks; no circuit simulation, firmware execution,
-or bench test has been performed. Earlier schematic folders are untouched.
+These are static wiring checks only - they read the wire list, not a circuit.
+Nothing here simulates the design or runs the firmware; the bench results live
+in [`../PICO9918.md`](../PICO9918.md).
 
-Regenerate from the worktree root:
+Regenerate from the repository root:
 
 ```powershell
-python pcb/debug-probe-pico2/make_wiring.py
-python pcb/debug-probe-pico2/verify_wiring.py
+python hardware/make_wiring.py
+python hardware/verify_wiring.py
 ```

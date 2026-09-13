@@ -96,16 +96,24 @@ so it is not a suitable direct 3.3 V replacement for this switch.
 
 ## Firmware and first use
 
-The wiring needs custom Pico 2 probe firmware; existing `test/host` firmware
-has a different pin assignment and must not be used unchanged.
-CMSIS-DAP support can expose SWD to OpenOCD; bus tests and GP22 power
-control need corresponding custom commands. This delivery is wiring only.
+The firmware for this wiring is the repository this folder sits in - build it
+with [`build-pico9918.ps1`](../build-pico9918.ps1) and see
+[`PICO9918.md`](../PICO9918.md) for driving it. The PICO9918's own `test/host`
+firmware has a different pin assignment and must not be used unchanged.
 
 1. With the target off, initialise the probe. Keep SWD released and disable
    data-pin pulls. Keep GP22 LOW if the power option is fitted.
-2. Set /CSR, /CSW, MODE, MODE1 and /RST HIGH; initialise the data bus as
-   inputs. Fit the manual power jumper or drive GP22 HIGH for the switch
-   option, wait for startup, then use bus/SWD.
+2. Set /CSR, /CSW, MODE and MODE1 HIGH; initialise the data bus as inputs.
+   Fit the manual power jumper or drive GP22 HIGH for the switch option, wait
+   for startup, then use bus/SWD.
+
+   WARNING: /RST is the exception and must not be driven HIGH. It reaches the
+   target through a 5 V-powered 74AHC126, and a 3.3 V GPIO does not meet its
+   input-high margin. Fit a 4.7-10 kohm pull-up from target 5 V (ZIF pin 33)
+   to /RST (ZIF pin 34) and treat GP21 as true open-drain: output LOW to
+   assert reset, input with pulls disabled to release it. The resistor then
+   produces a valid 5 V HIGH without the probe ever driving 5 V, which is
+   also what allows reset to be held low across a power-up.
 3. For a read, release GP4-GP11 **before** /CSR goes LOW. At the end, raise
    /CSR and allow target output-disable time before enabling Pico outputs.
    Keep /CSW inactive. For a write, keep /CSR HIGH and set data/MODE before

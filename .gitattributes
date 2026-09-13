@@ -1,0 +1,10 @@
+# Upstream is a Linux-origin project and every text file here is stored LF, so
+# check out LF regardless of the cloner's core.autocrlf. Without this, a Windows
+# clone with autocrlf=true rewrites the whole tree on checkout.
+* text=auto eol=lf
+
+# WARNING: these are binary. Left to guess, git decides the PDFs are text and
+# injects CRs into them on checkout, which breaks their xref offsets and leaves
+# a file that no longer opens.
+*.pdf binary
+*.png binary

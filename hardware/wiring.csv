@@ -1,0 +1,22 @@
+﻿Probe GPIO,Pico 2 physical pin,Signal,Target connector,Target pin,Target header,Direction from probe
+GP4,6,D0 / CD7,ZIF,17,H2.7,both
+GP5,7,D1 / CD6,ZIF,18,H2.8,both
+GP6,9,D2 / CD5,ZIF,19,H2.9,both
+GP7,10,D3 / CD4,ZIF,20,H2.10,both
+GP8,11,D4 / CD3,ZIF,21,H3.1,both
+GP9,12,D5 / CD2,ZIF,22,H3.2,both
+GP10,14,D6 / CD1,ZIF,23,H3.3,both
+GP11,15,D7 / CD0,ZIF,24,H3.4,both
+GP12,16,/CSR,ZIF,15,H2.5,out
+GP13,17,/CSW,ZIF,14,H2.4,out
+GP14,19,MODE,ZIF,13,H2.3,out
+GP15,20,MODE1,ZIF,11,H2.1,out
+GP21,27,/RST,ZIF,34,H4.2,out
+GP18,24,/INT,ZIF,16,H2.6,in
+GP19,25,CPUCLK,ZIF,38,H4.6,in
+GP20,26,GROMCLK,ZIF,37,H4.5,in
+GND,23,GND,ZIF,12,H2.2,ground
+GP2,4,SWCLK,DBG1,1,,out
+GND,3,GND,DBG1,2,,ground
+GP3,5,SWDIO,DBG1,3,,both
+VBUS,40,+5V via removable jumper,ZIF,33,H4.1,power (manual option only)

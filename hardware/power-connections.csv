@@ -1,0 +1,8 @@
+﻿Net,Terminals
+USB_5V,Pico pin 40; Q1 BC327 emitter (3); R2 10k end 1
+TARGET_5V,Q1 BC327 collector (1); ZIF pin 33
+PNP_BASE,Q1 BC327 base (2); R2 10k end 2; R1 220 end 1
+NPN_COLLECTOR,R1 220 end 2; Q2 2N3904 collector (3)
+POWER_EN,Pico GP22 / pin 29; R3 1k end 1
+NPN_BASE,R3 1k end 2; R4 100k end 1; Q2 2N3904 base (2)
+GND,R4 100k end 2; Q2 2N3904 emitter (1); Pico GND; ZIF pin 12; target DBG1 pin 2

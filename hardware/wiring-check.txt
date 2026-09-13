@@ -1,0 +1,2 @@
+PASS: 20 bus/SWD/ground connections plus manual VBUS jumper, original target header geometry, Pico 2 physical pins, 7 optional power nets, SVG parsing, and both PDF pages.
+Static checks only; fitted U5 and loaded transistor-switch voltage remain bench checks.

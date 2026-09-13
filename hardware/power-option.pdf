@@ -1,0 +1,116 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 1190.55 841.89] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 6344 >>
+stream
+q 0.744094 0 0 0.744094 0 0 cm
+1.0000 1.0000 1.0000 rg 1.0000 1.0000 1.0000 RG 0 0 1600 1120 re B
+BT /F2 31 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 45 1066 Tm (OPTIONAL TARGET POWER  /  PARTS ALREADY ON HAND) Tj ET
+BT /F1 19 Tf 0.4000 0.4667 0.5373 rg 1 0 0 1 45 1035 Tm (BC327-40 + 2N3904 + four resistors  |  GP22 HIGH = power ON  |  LOW / floating = OFF) Tj ET
+1.0000 0.9490 0.8471 rg 1.0000 0.9490 0.8471 RG 45 959 1510 55 re B
+BT /F2 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 60 989 Tm (Replace the page-1 power jumper with this switch. Leave target USB unplugged; retain all signal/ground wires.) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 60 967 Tm (Q1 switches +5 V. Ground remains permanently connected. No target 3.3 V connection.) Tj ET
+BT /F2 22 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 95 888 Tm (PICO 2 VBUS) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 95 859 Tm (Physical pin 40) Tj ET
+0.0314 0.4863 0.4549 RG 3 w 95 835 m 740 835 l S
+BT /F1 18 Tf 0.0314 0.4863 0.4549 rg 1 0 0 1 400 853 Tm (USB +5 V) Tj ET
+BT /F2 21 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 752 882 Tm (Q1  BC327-40  \(PNP\)) Tj ET
+0.0314 0.4863 0.4549 RG 3 w 740 835 m 800 835 l S
+0.0314 0.4863 0.4549 RG 3 w 800 835 m 822 800 l S
+0.0314 0.4863 0.4549 RG 3 w 858 800 m 880 835 l S
+0.0314 0.4863 0.4549 RG 3 w 880 835 m 940 835 l S
+0.0314 0.4863 0.4549 RG 4 w 795 800 m 885 800 l S
+0.0314 0.4863 0.4549 RG 3 w 840 800 m 840 760 l S
+0.0314 0.4863 0.4549 rg 818.000 806.000 m 815.097 821.893 l 804.938 815.507 l h f
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 744 849 Tm (E \(3\)) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 898 849 Tm (C \(1\)) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 858 768 Tm (B \(2\)) Tj ET
+0.0314 0.4863 0.4549 RG 3 w 940 835 m 1310 835 l S
+BT /F2 21 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1060 861 Tm (TARGET +5 V) Tj ET
+BT /F2 20 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1100 799 Tm (ZIF pin 33 / H4.1) Tj ET
+BT /F1 16 Tf 0.4000 0.4667 0.5373 rg 1 0 0 1 1080 771 Tm (Slightly below VBUS under load) Tj ET
+0.0314 0.4863 0.4549 RG 2 w 840 760 m 840 665 l S
+0.0314 0.4863 0.4549 RG 2 w 600 835 m 600 720 l S
+0.0314 0.4863 0.4549 RG 2 w 600 720 m 690 720 l S
+1.0000 1.0000 1.0000 rg 0.0314 0.4863 0.4549 RG 690 708 80 24 re B
+0.0314 0.4863 0.4549 RG 2 w 770 720 m 840 720 l S
+BT /F2 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 660 740 Tm (R2  10k) Tj ET
+1.0000 1.0000 1.0000 rg 0.0314 0.4863 0.4549 RG 828 605 24 60 re B
+BT /F2 20 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 875 638 Tm (R1  220 ohm) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 875 610 Tm (1/4 W) Tj ET
+0.0314 0.4863 0.4549 RG 2 w 840 605 m 840 545 l S
+0.0902 0.3882 0.6510 RG 3 w 840 545 m 840 515 l S
+0.0902 0.3882 0.6510 RG 3 w 840 515 m 800 485 l S
+0.0902 0.3882 0.6510 RG 4 w 800 500 m 800 420 l S
+0.0902 0.3882 0.6510 RG 3 w 740 455 m 800 455 l S
+0.0902 0.3882 0.6510 RG 3 w 800 435 m 840 405 l S
+0.0902 0.3882 0.6510 RG 3 w 840 405 m 840 390 l S
+0.0902 0.3882 0.6510 rg 834.000 409.500 m 825.600 423.300 l 818.400 413.700 l h f
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 866 515 Tm (C \(3\)) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 740 472 Tm (B \(2\)) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 866 390 Tm (E \(1\)) Tj ET
+BT /F2 21 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 874 457 Tm (Q2  2N3904) Tj ET
+BT /F2 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 874 429 Tm (NPN) Tj ET
+BT /F2 22 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 95 507 Tm (PICO 2 GP22) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 95 478 Tm (Physical pin 29) Tj ET
+0.0902 0.3882 0.6510 RG 2 w 95 455 m 400 455 l S
+1.0000 1.0000 1.0000 rg 0.0902 0.3882 0.6510 RG 400 443 80 24 re B
+BT /F2 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 402 481 Tm (R3  1k) Tj ET
+0.0902 0.3882 0.6510 RG 2 w 480 455 m 740 455 l S
+0.0902 0.3882 0.6510 RG 2 w 590 455 m 590 411 l S
+1.0000 1.0000 1.0000 rg 0.0902 0.3882 0.6510 RG 578 351 24 60 re B
+BT /F2 19 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 445 375 Tm (R4  100k) Tj ET
+0.0902 0.3882 0.6510 RG 2 w 590 351 m 590 310 l S
+0.0902 0.1961 0.3020 RG 2 w 840 390 m 840 310 l S
+0.0902 0.1961 0.3020 RG 3 w 95 310 m 1310 310 l S
+BT /F2 20 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 95 326 Tm (Pico GND) Tj ET
+BT /F2 20 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1080 326 Tm (ZIF pin 12 / H2.2) Tj ET
+BT /F1 18 Tf 0.4000 0.4667 0.5373 rg 1 0 0 1 600 279 Tm (Common ground: same as page 1) Tj ET
+0.9569 0.9725 0.9882 rg 0.9569 0.9725 0.9882 RG 1030 466 500 252 re B
+BT /F2 21 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1050 687 Tm (TRANSISTOR LEADS) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1050 654 Tm (Reference TO-92 pin numbers:) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1050 621 Tm (BC327-40:  1 = C,  2 = B,  3 = E) Tj ET
+BT /F1 18 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1050 588 Tm (2N3904:      1 = E,  2 = B,  3 = C) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1050 546 Tm (The drawings show electrical terminals,) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1050 520 Tm (not physical leg placement. Check your) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 1050 494 Tm (manufacturer/package before inserting.) Tj ET
+0.9294 0.9647 0.9451 rg 0.9294 0.9647 0.9451 RG 45 146 1510 94 re B
+BT /F2 20 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 65 211 Tm (HOW IT WORKS) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 65 184 Tm (GP22 drives Q2, which pulls Q1 base down through R1. Q1 then supplies the target. R2 and R4 default both transistors off.) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 65 160 Tm (R1 gives about 18 mA base drive to Q1; R3 draws about 2.5 mA from the Pico. Initial design load: up to 150 mA target current.) Tj ET
+BT /F2 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 45 115 Tm (Check the loaded voltage at ZIF pin 33 before relying on this switch: aim for at least 4.5 V with the target running.) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 45 87 Tm (Before GP22 LOW, release bus/SWD outputs and disable pulls. Start with a 1-second off delay; verify that the target resets.) Tj ET
+BT /F1 17 Tf 0.0902 0.1961 0.3020 rg 1 0 0 1 45 59 Tm (Pico USB must supply probe + target + base drive; request a 500 mA USB configuration before enabling target power.) Tj ET
+BT /F1 16 Tf 0.4000 0.4667 0.5373 rg 1 0 0 1 45 26 Tm (Prototype switch: no current limiting or active discharge. No relay or flyback diode is needed. See README for connections.) Tj ET
+Q
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000264 00000 n 
+0000000334 00000 n 
+0000000409 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+6804
+%%EOF

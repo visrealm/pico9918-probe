@@ -1,0 +1,343 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+<title>Pico 2 to PICO9918 prototype wiring</title>
+<desc>Direct bus and SWD wiring, shared Pico 2 USB power through a removable jumper, 40-pin ZIF socket.</desc>
+<rect x="0" y="0" width="1600" height="1120" fill="#ffffff" stroke="#ffffff"/>
+<text x="45" y="54" fill="#17324d" font-family="Arial, sans-serif" font-size="31" font-weight="700">PICO 2  /  PICO9918 BENCH PROTOTYPE</text>
+<text x="45" y="85" fill="#667789" font-family="Arial, sans-serif" font-size="19" font-weight="400">Direct bus + SWD  |  40-pin ZIF  |  Manual power  |  12 September 2026</text>
+<rect x="45" y="106" width="1510" height="55" fill="#fff2d8" stroke="#fff2d8"/>
+<text x="60" y="130" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="700">3.3 V data writes: confirm target U5 is HCT245. Saved schematics say HC245; direct writes then need bench validation.</text>
+<text x="60" y="152" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">One USB source powers both boards through Pico 2 VBUS. GP26-GP28 are NOT 5 V tolerant; no bus wires use them.</text>
+<rect x="45" y="183" width="995" height="523" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="65" y="214" fill="#17324d" font-family="Arial, sans-serif" font-size="21" font-weight="700">PROBE: PICO 2 HEADER</text>
+<text x="690" y="214" fill="#17324d" font-family="Arial, sans-serif" font-size="21" font-weight="700">TARGET: ZIF SOCKET</text>
+<text x="65" y="239" fill="#667789" font-family="Arial, sans-serif" font-size="17" font-weight="400">GPIO           Physical pin</text>
+<text x="690" y="239" fill="#667789" font-family="Arial, sans-serif" font-size="17" font-weight="400">DIP pin       Target header</text>
+<text x="65" y="274" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP4</text>
+<text x="217" y="274" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">6</text>
+<line x1="282" y1="269" x2="665" y2="269" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="269" x2="657" y2="264" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="269" x2="657" y2="274" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="269" x2="290" y2="264" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="269" x2="290" y2="274" stroke="#1763a6" stroke-width="2"/>
+<rect x="402" y="257" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="274" fill="#1763a6" font-family="Arial, sans-serif" font-size="17" font-weight="700">D0 / CD7</text>
+<text x="698" y="274" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">17</text>
+<text x="826" y="274" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.7</text>
+<text x="65" y="299" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP5</text>
+<text x="217" y="299" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">7</text>
+<line x1="282" y1="294" x2="665" y2="294" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="294" x2="657" y2="289" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="294" x2="657" y2="299" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="294" x2="290" y2="289" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="294" x2="290" y2="299" stroke="#1763a6" stroke-width="2"/>
+<rect x="402" y="282" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="299" fill="#1763a6" font-family="Arial, sans-serif" font-size="17" font-weight="700">D1 / CD6</text>
+<text x="698" y="299" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">18</text>
+<text x="826" y="299" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.8</text>
+<text x="65" y="324" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP6</text>
+<text x="217" y="324" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">9</text>
+<line x1="282" y1="319" x2="665" y2="319" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="319" x2="657" y2="314" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="319" x2="657" y2="324" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="319" x2="290" y2="314" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="319" x2="290" y2="324" stroke="#1763a6" stroke-width="2"/>
+<rect x="402" y="307" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="324" fill="#1763a6" font-family="Arial, sans-serif" font-size="17" font-weight="700">D2 / CD5</text>
+<text x="698" y="324" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">19</text>
+<text x="826" y="324" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.9</text>
+<text x="65" y="349" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP7</text>
+<text x="217" y="349" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">10</text>
+<line x1="282" y1="344" x2="665" y2="344" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="344" x2="657" y2="339" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="344" x2="657" y2="349" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="344" x2="290" y2="339" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="344" x2="290" y2="349" stroke="#1763a6" stroke-width="2"/>
+<rect x="402" y="332" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="349" fill="#1763a6" font-family="Arial, sans-serif" font-size="17" font-weight="700">D3 / CD4</text>
+<text x="698" y="349" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">20</text>
+<text x="826" y="349" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.10</text>
+<text x="65" y="374" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP8</text>
+<text x="217" y="374" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">11</text>
+<line x1="282" y1="369" x2="665" y2="369" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="369" x2="657" y2="364" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="369" x2="657" y2="374" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="369" x2="290" y2="364" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="369" x2="290" y2="374" stroke="#1763a6" stroke-width="2"/>
+<rect x="402" y="357" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="374" fill="#1763a6" font-family="Arial, sans-serif" font-size="17" font-weight="700">D4 / CD3</text>
+<text x="698" y="374" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">21</text>
+<text x="826" y="374" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H3.1</text>
+<text x="65" y="399" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP9</text>
+<text x="217" y="399" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">12</text>
+<line x1="282" y1="394" x2="665" y2="394" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="394" x2="657" y2="389" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="394" x2="657" y2="399" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="394" x2="290" y2="389" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="394" x2="290" y2="399" stroke="#1763a6" stroke-width="2"/>
+<rect x="402" y="382" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="399" fill="#1763a6" font-family="Arial, sans-serif" font-size="17" font-weight="700">D5 / CD2</text>
+<text x="698" y="399" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">22</text>
+<text x="826" y="399" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H3.2</text>
+<text x="65" y="424" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP10</text>
+<text x="217" y="424" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">14</text>
+<line x1="282" y1="419" x2="665" y2="419" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="419" x2="657" y2="414" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="419" x2="657" y2="424" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="419" x2="290" y2="414" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="419" x2="290" y2="424" stroke="#1763a6" stroke-width="2"/>
+<rect x="402" y="407" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="424" fill="#1763a6" font-family="Arial, sans-serif" font-size="17" font-weight="700">D6 / CD1</text>
+<text x="698" y="424" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">23</text>
+<text x="826" y="424" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H3.3</text>
+<text x="65" y="449" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP11</text>
+<text x="217" y="449" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">15</text>
+<line x1="282" y1="444" x2="665" y2="444" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="444" x2="657" y2="439" stroke="#1763a6" stroke-width="2"/>
+<line x1="665" y1="444" x2="657" y2="449" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="444" x2="290" y2="439" stroke="#1763a6" stroke-width="2"/>
+<line x1="282" y1="444" x2="290" y2="449" stroke="#1763a6" stroke-width="2"/>
+<rect x="402" y="432" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="449" fill="#1763a6" font-family="Arial, sans-serif" font-size="17" font-weight="700">D7 / CD0</text>
+<text x="698" y="449" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">24</text>
+<text x="826" y="449" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H3.4</text>
+<text x="65" y="474" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP12</text>
+<text x="217" y="474" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">16</text>
+<line x1="282" y1="469" x2="665" y2="469" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="469" x2="657" y2="464" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="469" x2="657" y2="474" stroke="#087c74" stroke-width="2"/>
+<rect x="402" y="457" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="474" fill="#087c74" font-family="Arial, sans-serif" font-size="17" font-weight="700">/CSR</text>
+<text x="698" y="474" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">15</text>
+<text x="826" y="474" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.5</text>
+<text x="65" y="499" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP13</text>
+<text x="217" y="499" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">17</text>
+<line x1="282" y1="494" x2="665" y2="494" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="494" x2="657" y2="489" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="494" x2="657" y2="499" stroke="#087c74" stroke-width="2"/>
+<rect x="402" y="482" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="499" fill="#087c74" font-family="Arial, sans-serif" font-size="17" font-weight="700">/CSW</text>
+<text x="698" y="499" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">14</text>
+<text x="826" y="499" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.4</text>
+<text x="65" y="524" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP14</text>
+<text x="217" y="524" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">19</text>
+<line x1="282" y1="519" x2="665" y2="519" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="519" x2="657" y2="514" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="519" x2="657" y2="524" stroke="#087c74" stroke-width="2"/>
+<rect x="402" y="507" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="524" fill="#087c74" font-family="Arial, sans-serif" font-size="17" font-weight="700">MODE</text>
+<text x="698" y="524" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">13</text>
+<text x="826" y="524" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.3</text>
+<text x="65" y="549" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP15</text>
+<text x="217" y="549" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">20</text>
+<line x1="282" y1="544" x2="665" y2="544" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="544" x2="657" y2="539" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="544" x2="657" y2="549" stroke="#087c74" stroke-width="2"/>
+<rect x="402" y="532" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="549" fill="#087c74" font-family="Arial, sans-serif" font-size="17" font-weight="700">MODE1</text>
+<text x="698" y="549" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">11</text>
+<text x="826" y="549" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.1</text>
+<text x="65" y="574" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP21</text>
+<text x="217" y="574" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">27</text>
+<line x1="282" y1="569" x2="665" y2="569" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="569" x2="657" y2="564" stroke="#087c74" stroke-width="2"/>
+<line x1="665" y1="569" x2="657" y2="574" stroke="#087c74" stroke-width="2"/>
+<rect x="402" y="557" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="574" fill="#087c74" font-family="Arial, sans-serif" font-size="17" font-weight="700">/RST</text>
+<text x="698" y="574" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">34</text>
+<text x="826" y="574" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H4.2</text>
+<text x="65" y="599" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP18</text>
+<text x="217" y="599" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">24</text>
+<line x1="282" y1="594" x2="665" y2="594" stroke="#7547a5" stroke-width="2"/>
+<line x1="282" y1="594" x2="290" y2="589" stroke="#7547a5" stroke-width="2"/>
+<line x1="282" y1="594" x2="290" y2="599" stroke="#7547a5" stroke-width="2"/>
+<rect x="402" y="582" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="599" fill="#7547a5" font-family="Arial, sans-serif" font-size="17" font-weight="700">/INT</text>
+<text x="698" y="599" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">16</text>
+<text x="826" y="599" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.6</text>
+<text x="65" y="624" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP19</text>
+<text x="217" y="624" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">25</text>
+<line x1="282" y1="619" x2="665" y2="619" stroke="#7547a5" stroke-width="2"/>
+<line x1="282" y1="619" x2="290" y2="614" stroke="#7547a5" stroke-width="2"/>
+<line x1="282" y1="619" x2="290" y2="624" stroke="#7547a5" stroke-width="2"/>
+<rect x="402" y="607" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="624" fill="#7547a5" font-family="Arial, sans-serif" font-size="17" font-weight="700">CPUCLK</text>
+<text x="698" y="624" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">38</text>
+<text x="826" y="624" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H4.6</text>
+<text x="65" y="649" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GP20</text>
+<text x="217" y="649" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">26</text>
+<line x1="282" y1="644" x2="665" y2="644" stroke="#7547a5" stroke-width="2"/>
+<line x1="282" y1="644" x2="290" y2="639" stroke="#7547a5" stroke-width="2"/>
+<line x1="282" y1="644" x2="290" y2="649" stroke="#7547a5" stroke-width="2"/>
+<rect x="402" y="632" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="649" fill="#7547a5" font-family="Arial, sans-serif" font-size="17" font-weight="700">GROMCLK</text>
+<text x="698" y="649" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">37</text>
+<text x="826" y="649" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H4.5</text>
+<text x="65" y="674" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">GND</text>
+<text x="217" y="674" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">23</text>
+<line x1="282" y1="669" x2="665" y2="669" stroke="#17324d" stroke-width="2"/>
+<rect x="402" y="657" width="158" height="24" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="416" y="674" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="700">GND</text>
+<text x="698" y="674" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">12</text>
+<text x="826" y="674" fill="#667789" font-family="Arial, sans-serif" font-size="18" font-weight="400">H2.2</text>
+<text x="65" y="694" fill="#667789" font-family="Arial, sans-serif" font-size="15" font-weight="400">Arrows show signal direction; data pins switch between input and output in firmware.</text>
+<rect x="1060" y="183" width="495" height="680" fill="#f4f8fc" stroke="#f4f8fc"/>
+<text x="1080" y="214" fill="#17324d" font-family="Arial, sans-serif" font-size="21" font-weight="700">ZIF: TOP / INSERTION VIEW</text>
+<text x="1080" y="242" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">Align target pin 1 with socket pin 1.</text>
+<rect x="1185" y="274" width="245" height="515" fill="#ffffff" stroke="#667789"/>
+<line x1="1280" y1="274" x2="1280" y2="286" stroke="#667789" stroke-width="2"/>
+<line x1="1280" y1="286" x2="1335" y2="286" stroke="#667789" stroke-width="2"/>
+<line x1="1335" y1="286" x2="1335" y2="274" stroke="#667789" stroke-width="2"/>
+<line x1="1168" y1="300" x2="1185" y2="300" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="305" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">1</text>
+<text x="1194" y="305" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="300" x2="1447" y2="300" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="305" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">40</text>
+<text x="1337" y="305" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="324" x2="1185" y2="324" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="329" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">2</text>
+<text x="1194" y="329" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="324" x2="1447" y2="324" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="329" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">39</text>
+<text x="1337" y="329" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="348" x2="1185" y2="348" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="353" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">3</text>
+<text x="1194" y="353" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="348" x2="1447" y2="348" stroke="#17324d" stroke-width="2"/>
+<text x="1452" y="353" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">38</text>
+<text x="1337" y="353" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">CPUCLK</text>
+<line x1="1168" y1="372" x2="1185" y2="372" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="377" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">4</text>
+<text x="1194" y="377" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="372" x2="1447" y2="372" stroke="#17324d" stroke-width="2"/>
+<text x="1452" y="377" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">37</text>
+<text x="1337" y="377" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">GROMCLK</text>
+<line x1="1168" y1="396" x2="1185" y2="396" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="401" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">5</text>
+<text x="1194" y="401" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="396" x2="1447" y2="396" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="401" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">36</text>
+<text x="1337" y="401" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="420" x2="1185" y2="420" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="425" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">6</text>
+<text x="1194" y="425" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="420" x2="1447" y2="420" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="425" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">35</text>
+<text x="1337" y="425" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="444" x2="1185" y2="444" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="449" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">7</text>
+<text x="1194" y="449" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="444" x2="1447" y2="444" stroke="#17324d" stroke-width="2"/>
+<text x="1452" y="449" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">34</text>
+<text x="1337" y="449" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">/RST</text>
+<line x1="1168" y1="468" x2="1185" y2="468" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="473" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">8</text>
+<text x="1194" y="473" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="468" x2="1447" y2="468" stroke="#17324d" stroke-width="2"/>
+<text x="1452" y="473" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">33</text>
+<text x="1337" y="473" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">+5V*</text>
+<line x1="1168" y1="492" x2="1185" y2="492" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="497" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">9</text>
+<text x="1194" y="497" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="492" x2="1447" y2="492" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="497" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">32</text>
+<text x="1337" y="497" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="516" x2="1185" y2="516" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1137" y="521" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">10</text>
+<text x="1194" y="521" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1430" y1="516" x2="1447" y2="516" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="521" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">31</text>
+<text x="1337" y="521" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="540" x2="1185" y2="540" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="545" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">11</text>
+<text x="1194" y="545" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">MODE1</text>
+<line x1="1430" y1="540" x2="1447" y2="540" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="545" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">30</text>
+<text x="1337" y="545" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="564" x2="1185" y2="564" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="569" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">12</text>
+<text x="1194" y="569" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">GND</text>
+<line x1="1430" y1="564" x2="1447" y2="564" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="569" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">29</text>
+<text x="1337" y="569" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="588" x2="1185" y2="588" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="593" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">13</text>
+<text x="1194" y="593" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">MODE</text>
+<line x1="1430" y1="588" x2="1447" y2="588" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="593" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">28</text>
+<text x="1337" y="593" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="612" x2="1185" y2="612" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="617" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">14</text>
+<text x="1194" y="617" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">/CSW</text>
+<line x1="1430" y1="612" x2="1447" y2="612" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="617" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">27</text>
+<text x="1337" y="617" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="636" x2="1185" y2="636" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="641" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">15</text>
+<text x="1194" y="641" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">/CSR</text>
+<line x1="1430" y1="636" x2="1447" y2="636" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="641" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">26</text>
+<text x="1337" y="641" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="660" x2="1185" y2="660" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="665" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">16</text>
+<text x="1194" y="665" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">/INT</text>
+<line x1="1430" y1="660" x2="1447" y2="660" stroke="#b2bdc6" stroke-width="2"/>
+<text x="1452" y="665" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="15" font-weight="400">25</text>
+<text x="1337" y="665" fill="#b2bdc6" font-family="Arial, sans-serif" font-size="14" font-weight="400">-</text>
+<line x1="1168" y1="684" x2="1185" y2="684" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="689" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">17</text>
+<text x="1194" y="689" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">D0</text>
+<line x1="1430" y1="684" x2="1447" y2="684" stroke="#17324d" stroke-width="2"/>
+<text x="1452" y="689" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">24</text>
+<text x="1337" y="689" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">D7</text>
+<line x1="1168" y1="708" x2="1185" y2="708" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="713" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">18</text>
+<text x="1194" y="713" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">D1</text>
+<line x1="1430" y1="708" x2="1447" y2="708" stroke="#17324d" stroke-width="2"/>
+<text x="1452" y="713" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">23</text>
+<text x="1337" y="713" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">D6</text>
+<line x1="1168" y1="732" x2="1185" y2="732" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="737" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">19</text>
+<text x="1194" y="737" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">D2</text>
+<line x1="1430" y1="732" x2="1447" y2="732" stroke="#17324d" stroke-width="2"/>
+<text x="1452" y="737" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">22</text>
+<text x="1337" y="737" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">D5</text>
+<line x1="1168" y1="756" x2="1185" y2="756" stroke="#17324d" stroke-width="2"/>
+<text x="1137" y="761" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">20</text>
+<text x="1194" y="761" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">D3</text>
+<line x1="1430" y1="756" x2="1447" y2="756" stroke="#17324d" stroke-width="2"/>
+<text x="1452" y="761" fill="#17324d" font-family="Arial, sans-serif" font-size="15" font-weight="700">21</text>
+<text x="1337" y="761" fill="#17324d" font-family="Arial, sans-serif" font-size="14" font-weight="400">D4</text>
+<text x="1080" y="819" fill="#17324d" font-family="Arial, sans-serif" font-size="16" font-weight="400">* Pin 33: Pico VBUS via jumper or page-2 switch.</text>
+<text x="1080" y="844" fill="#667789" font-family="Arial, sans-serif" font-size="16" font-weight="400">15.24 mm target rows; socket body not to scale.</text>
+<rect x="45" y="724" width="995" height="140" fill="#f6f3fa" stroke="#f6f3fa"/>
+<text x="65" y="755" fill="#17324d" font-family="Arial, sans-serif" font-size="20" font-weight="700">SWD: SEPARATE TARGET DEBUG CONNECTOR</text>
+<text x="65" y="786" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">GP2  /  pin 4</text>
+<line x1="282" y1="781" x2="665" y2="781" stroke="#7547a5" stroke-width="2"/>
+<line x1="665" y1="781" x2="657" y2="776" stroke="#7547a5" stroke-width="2"/>
+<line x1="665" y1="781" x2="657" y2="786" stroke="#7547a5" stroke-width="2"/>
+<rect x="402" y="769" width="158" height="24" fill="#f6f3fa" stroke="#f6f3fa"/>
+<text x="416" y="786" fill="#7547a5" font-family="Arial, sans-serif" font-size="17" font-weight="700">SWCLK</text>
+<text x="690" y="786" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">DBG1 pin 1</text>
+<text x="65" y="815" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">GND  /  pin 3</text>
+<line x1="282" y1="810" x2="665" y2="810" stroke="#7547a5" stroke-width="2"/>
+<rect x="402" y="798" width="158" height="24" fill="#f6f3fa" stroke="#f6f3fa"/>
+<text x="416" y="815" fill="#7547a5" font-family="Arial, sans-serif" font-size="17" font-weight="700">GND</text>
+<text x="690" y="815" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">DBG1 pin 2</text>
+<text x="65" y="844" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">GP3  /  pin 5</text>
+<line x1="282" y1="839" x2="665" y2="839" stroke="#7547a5" stroke-width="2"/>
+<line x1="665" y1="839" x2="657" y2="834" stroke="#7547a5" stroke-width="2"/>
+<line x1="665" y1="839" x2="657" y2="844" stroke="#7547a5" stroke-width="2"/>
+<line x1="282" y1="839" x2="290" y2="834" stroke="#7547a5" stroke-width="2"/>
+<line x1="282" y1="839" x2="290" y2="844" stroke="#7547a5" stroke-width="2"/>
+<rect x="402" y="827" width="158" height="24" fill="#f6f3fa" stroke="#f6f3fa"/>
+<text x="416" y="844" fill="#7547a5" font-family="Arial, sans-serif" font-size="17" font-weight="700">SWDIO</text>
+<text x="690" y="844" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">DBG1 pin 3</text>
+<rect x="45" y="880" width="1510" height="100" fill="#edf6f1" stroke="#edf6f1"/>
+<text x="65" y="909" fill="#17324d" font-family="Arial, sans-serif" font-size="20" font-weight="700">POWER + VIDEO</text>
+<text x="65" y="936" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">PC USB -&gt; Pico 2 USB; VBUS pin 40 -&gt; removable jumper -&gt; ZIF pin 33. Leave target USB unplugged.</text>
+<text x="65" y="963" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="400">Target video FFC -&gt; existing VGA adapter -&gt; monitor. No video signals go through the probe.</text>
+<text x="45" y="1010" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">1. Configure /CSR, /CSW, MODE, MODE1 and /RST idle HIGH, then fit the target power jumper.</text>
+<text x="45" y="1037" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">2. Make GP4-GP11 inputs BEFORE asserting /CSR. Release /CSR and allow bus turnaround before driving data.</text>
+<text x="45" y="1064" fill="#17324d" font-family="Arial, sans-serif" font-size="17" font-weight="400">3. For a manual power cycle, release bus/SWD outputs and pulls, remove the power jumper, then reconnect.</text>
+<text x="45" y="1096" fill="#667789" font-family="Arial, sans-serif" font-size="16" font-weight="400">Manual option shown. Optional transistor power switch: see page 2. Use GP2/GP3, not the probe native SWD pads.</text>
+</svg>

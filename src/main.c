@@ -46,6 +46,10 @@
 #include "tusb_edpt_handler.h"
 #include "DAP.h"
 #include "hardware/structs/usb.h"
+#ifdef PICO9918_HOST_BUS
+#include "pico9918_bus.h"
+#include "hardware/clocks.h"
+#endif
 
 // UART0 for debugprobe debug
 // UART1 for debugprobe to target device
@@ -145,6 +149,10 @@ void usb_thread(void *ptr)
 #endif
 
 int main(void) {
+#ifdef PICO9918_HOST_BUS
+    // Integer PIO tick = 8 ns; shared with the timing report and trace decoder.
+    set_sys_clock_khz(125000, true);
+#endif
     // Declare pins in binary information
     bi_decl_config();
 
@@ -152,13 +160,22 @@ int main(void) {
     usb_serial_init();
     cdc_uart_init();
     tusb_init();
+#ifndef PICO9918_HOST_BUS
     stdio_uart_init();
+#endif
 
     DAP_Setup();
 
     probe_info("Welcome to debugprobe!\n");
 
     if (THREADED) {
+#ifdef PICO9918_HOST_BUS
+        // Persistent tasks: Heap1 cannot reclaim deleted mount-time tasks.
+        xTaskCreate(cdc_thread, "HOSTBUS", 2048, NULL, UART_TASK_PRIO, &uart_taskhandle);
+        xTaskCreate(dap_thread, "DAP", 1024, NULL, DAP_TASK_PRIO, &dap_taskhandle);
+        vTaskCoreAffinitySet(uart_taskhandle, (1 << 0));
+        vTaskCoreAffinitySet(dap_taskhandle, (1 << 1));
+#endif
         xTaskCreate(usb_thread, "TUD", configMINIMAL_STACK_SIZE, NULL, TUD_TASK_PRIO, &tud_taskhandle);
 #if (configNUMBER_OF_CORES > 1)
         vTaskCoreAffinitySet(tud_taskhandle, (1 << 0));
@@ -254,6 +271,10 @@ bool tud_vendor_control_xfer_cb(uint8_t rhport, uint8_t stage, tusb_control_requ
 
 void tud_suspend_cb(bool remote_wakeup_en)
 {
+#ifdef PICO9918_HOST_BUS
+  hb_request_stop();
+  return;
+#else
   probe_info("Suspended\n");
   /* Were we actually configured? If not, threads don't exist */
   if (was_configured) {
@@ -264,20 +285,27 @@ void tud_suspend_cb(bool remote_wakeup_en)
     vTaskSuspend(autobaud_taskhandle);
   }
   /* slow down clk_sys for power saving ? */
+#endif
 }
 
 void tud_resume_cb(void)
 {
+#ifndef PICO9918_HOST_BUS
   probe_info("Resumed\n");
   if (was_configured) {
     vTaskResume(uart_taskhandle);
     vTaskResume(dap_taskhandle);
     vTaskResume(autobaud_taskhandle);
   }
+#endif
 }
 
 void tud_unmount_cb(void)
 {
+#ifdef PICO9918_HOST_BUS
+  hb_request_stop();
+  was_configured = 0;
+#else
   probe_info("Disconnected/reset\n");
   vTaskSuspend(uart_taskhandle);
   vTaskSuspend(dap_taskhandle);
@@ -288,10 +316,14 @@ void tud_unmount_cb(void)
   vTaskSuspend(autobaud_taskhandle);
   vTaskDelete(autobaud_taskhandle);
   was_configured = 0;
+#endif
 }
 
 void tud_mount_cb(void)
 {
+#ifdef PICO9918_HOST_BUS
+  was_configured = 1;
+#else
   probe_info("Connected, Configured: %d\n", !!was_configured);
   if (!was_configured) {
     /* UART needs to preempt USB as if we don't, characters get lost */
@@ -307,6 +339,7 @@ void tud_mount_cb(void)
 #endif
     was_configured = 1;
   }
+#endif
 }
 
 void vApplicationTickHook (void)

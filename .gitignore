@@ -1,0 +1,9 @@
+__pycache__/
+.deps/
+*.pyc
+/build/
+/build-*/
+/protocol_test
+/protocol_test.exe
+/boot_test
+/boot_test.exe

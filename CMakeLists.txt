@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 
+option(PICO9918_HOST_BUS "Pico 2 PICO9918 bus fixture (CDC commands instead of UART)" OFF)
+if(PICO9918_HOST_BUS)
+    set(DEBUG_ON_PICO ON CACHE BOOL "Build on Pico" FORCE)
+    set(PICO_BOARD pico2 CACHE STRING "Fixture board" FORCE)
+endif()
+
 include(pico_sdk_import.cmake)
 
 set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/freertos)
@@ -20,12 +26,17 @@ add_executable(debugprobe
         src/main.c
         src/usb_descriptors.c
         src/probe.c
-        src/cdc_uart.c
         src/get_serial.c
         src/sw_dp_pio.c
         src/tusb_edpt_handler.c
-        src/autobaud.c
 )
+if(PICO9918_HOST_BUS)
+    target_sources(debugprobe PRIVATE src/pico9918_bus.c src/pico9918_protocol.c src/pico9918_cdc.c src/pico9918_boot.c)
+    target_compile_definitions(debugprobe PRIVATE PICO9918_HOST_BUS=1)
+    pico_generate_pio_header(debugprobe ${CMAKE_CURRENT_LIST_DIR}/src/pico9918_bus.pio)
+else()
+    target_sources(debugprobe PRIVATE src/cdc_uart.c src/autobaud.c)
+endif()
 
 target_sources(debugprobe PRIVATE
         CMSIS_DAP/CMSIS/DAP/Firmware/Source/DAP.c
@@ -51,7 +62,8 @@ target_include_directories(debugprobe PRIVATE src)
 
 # add version
 add_custom_target(version
-        ${CMAKE_SOURCE_DIR}/get-version.sh
+        ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -DBINARY_DIR=${CMAKE_CURRENT_BINARY_DIR}
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/version.cmake
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
@@ -83,6 +95,13 @@ if (DEBUG_ON_PICO)
         message(SEND_ERROR "Unsupported board ${PICO_BOARD}")
     endif ()
 endif ()
+
+if(PICO9918_HOST_BUS)
+    if(NOT PICO_PLATFORM STREQUAL "rp2350-arm-s")
+        message(FATAL_ERROR "PICO9918 fixture requires Pico 2 / rp2350-arm-s")
+    endif()
+    set_target_properties(debugprobe PROPERTIES OUTPUT_NAME "debugprobe_pico9918")
+endif()
 
 
 target_link_libraries(debugprobe PRIVATE

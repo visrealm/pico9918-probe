@@ -7,6 +7,9 @@
 #include "tusb_edpt_handler.h"
 #include "DAP.h"
 #include "semphr.h"
+#ifdef PICO9918_HOST_BUS
+#include "pico9918_bus.h"
+#endif
 
 
 static uint8_t itf_num;
@@ -20,6 +23,9 @@ static buffer_t USBRequestBuffer;
 static buffer_t USBResponseBuffer;
 
 static SemaphoreHandle_t edpt_spoon;
+#ifdef PICO9918_HOST_BUS
+static uint32_t bus_generation;
+#endif
 
 #define WR_IDX(x) (x.wptr % DAP_PACKET_COUNT)
 #define RD_IDX(x) (x.rptr % DAP_PACKET_COUNT)
@@ -54,6 +60,11 @@ bool dap_edpt_deinit(void)
 
 void dap_edpt_reset(uint8_t __unused rhport)
 {
+#ifdef PICO9918_HOST_BUS
+	hb_request_stop();
+	xSemaphoreTake(edpt_spoon, portMAX_DELAY);
+	++bus_generation;
+#endif
 	probe_info("dap_edpt_reset\n");
 	memset(&USBRequestBuffer, 0, sizeof(USBRequestBuffer));
 	memset(&USBResponseBuffer, 0, sizeof(USBResponseBuffer));
@@ -72,6 +83,9 @@ void dap_edpt_reset(uint8_t __unused rhport)
 	// Linux resets us twice in succession
 
 	itf_num = 0;
+#ifdef PICO9918_HOST_BUS
+	xSemaphoreGive(edpt_spoon);
+#endif
 }
 
 char * dap_cmd_string[] = {
@@ -204,6 +218,45 @@ bool dap_edpt_xfer_cb(uint8_t __unused rhport, uint8_t ep_addr, xfer_result_t re
 
 void dap_thread(void *ptr)
 {
+#ifdef PICO9918_HOST_BUS
+	// Persistent worker: keep packet storage private while USB can reset queues.
+	uint8_t request[DAP_PACKET_SIZE], response[DAP_PACKET_SIZE];
+	for (;;) {
+		vTaskDelay(1);
+		xSemaphoreTake(edpt_spoon, portMAX_DELAY);
+		if (!tud_mounted() || buffer_empty(&USBRequestBuffer) || buffer_full(&USBResponseBuffer)) {
+			xSemaphoreGive(edpt_spoon);
+			continue;
+		}
+		uint32_t end=USBRequestBuffer.rptr;
+		while (end!=USBRequestBuffer.wptr && USBRequestBuffer.data[end % DAP_PACKET_COUNT][0]==ID_DAP_QueueCommands) ++end;
+		if (end==USBRequestBuffer.wptr && !USBRequestBuffer.wasFull) {
+			xSemaphoreGive(edpt_spoon);
+			continue;
+		}
+		memcpy(request,RD_SLOT_PTR(USBRequestBuffer),DAP_PACKET_SIZE);
+		if (request[0]==ID_DAP_QueueCommands) request[0]=ID_DAP_ExecuteCommands;
+		uint32_t generation=bus_generation;
+		USBRequestBuffer.rptr++;
+		if (USBRequestBuffer.wasFull) {
+			USBRequestBuffer.wptr++;
+			usbd_edpt_xfer(_rhport,_out_ep_addr,WR_SLOT_PTR(USBRequestBuffer),DAP_PACKET_SIZE);
+			USBRequestBuffer.wasFull=false;
+		}
+		xSemaphoreGive(edpt_spoon);
+		uint16_t length=hb_dap_command(request,response);
+		xSemaphoreTake(edpt_spoon, portMAX_DELAY);
+		if (generation==bus_generation && tud_mounted()) {
+			memcpy(WR_SLOT_PTR(USBResponseBuffer),response,length);
+			USBResponseBuffer.data_len[WR_IDX(USBResponseBuffer)]=length;
+			bool empty=buffer_empty(&USBResponseBuffer);
+			USBResponseBuffer.wptr++;
+			if (empty) usbd_edpt_xfer(_rhport,_in_ep_addr,RD_SLOT_PTR(USBResponseBuffer),length);
+			else USBResponseBuffer.wasEmpty=false;
+		}
+		xSemaphoreGive(edpt_spoon);
+	}
+#else
 	uint32_t n;
 	uint32_t cmd;
 	uint16_t resp_len;
@@ -271,6 +324,7 @@ void dap_thread(void *ptr)
 			xSemaphoreGive(edpt_spoon);
 		}
 	} while (1);
+#endif
 }
 
 usbd_class_driver_t const _dap_edpt_driver =

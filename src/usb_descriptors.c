@@ -101,7 +101,11 @@ uint8_t const * tud_hid_descriptor_report_cb(uint8_t itf)
 
 uint8_t desc_configuration[] =
 {
+#ifdef PICO9918_HOST_BUS
+  TUD_CONFIG_DESCRIPTOR(1, ITF_NUM_TOTAL, 0, CONFIG_TOTAL_LEN, 0, 500),
+#else
   TUD_CONFIG_DESCRIPTOR(1, ITF_NUM_TOTAL, 0, CONFIG_TOTAL_LEN, 0, 100),
+#endif
   // Interface 0
 #if (PROBE_DEBUG_PROTOCOL == PROTO_DAP_V1)
   // HID (named interface)
@@ -143,7 +147,11 @@ char const* string_desc_arr [] =
   usb_serial,     // 3: Serial, uses flash unique ID
   "CMSIS-DAP v1 Interface", // 4: Interface descriptor for HID transport
   "CMSIS-DAP v2 Interface", // 5: Interface descriptor for Bulk transport
+#ifdef PICO9918_HOST_BUS
+  "PICO9918 Host Bus", // 6: CDC test commands
+#else
   "CDC-ACM UART Interface", // 6: Interface descriptor for CDC
+#endif
   "Reset", // 7: Interface descriptor for Reset
 };
 

@@ -1,0 +1,20 @@
+# Cross-platform equivalent of get-version.sh; do not rewrite an unchanged header.
+find_package(Git QUIET)
+set(VERSION unknown)
+if(GIT_FOUND)
+    execute_process(COMMAND "${GIT_EXECUTABLE}" describe --tags --always --dirty
+        WORKING_DIRECTORY "${SOURCE_DIR}" OUTPUT_VARIABLE VERSION OUTPUT_STRIP_TRAILING_WHITESPACE
+        RESULT_VARIABLE GIT_RESULT)
+    if(NOT GIT_RESULT EQUAL 0 OR VERSION STREQUAL "")
+        set(VERSION unknown)
+    endif()
+endif()
+file(MAKE_DIRECTORY "${BINARY_DIR}/generated/probe")
+set(TEXT "#ifndef _PROBE_VERSION_H\n#define _PROBE_VERSION_H\n#define PROBE_VERSION \"${VERSION}\"\n#endif\n")
+set(FILE "${BINARY_DIR}/generated/probe/version.h")
+if(EXISTS "${FILE}")
+    file(READ "${FILE}" OLD)
+endif()
+if(NOT TEXT STREQUAL OLD)
+    file(WRITE "${FILE}" "${TEXT}")
+endif()

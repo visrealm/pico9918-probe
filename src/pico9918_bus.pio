@@ -1,0 +1,77 @@
+; SPDX-License-Identifier: MIT
+; Two FIFO words per byte: pin/direction command, then setup/pulse/hold loops.
+; DMA supplies and drains all words. No CPU instruction is inside a bus pulse.
+.program hb_write
+.wrap_target
+    pull block
+    out pins, 12
+    out pindirs, 12      ; data OE plus control OE: RP2350 replaces this SM's OE write set
+    pull block
+    out x, 8
+setup:
+    jmp x-- setup
+    set pins, 1          ; /CSR=1, /CSW=0
+    out x, 8
+pulse:
+    jmp x-- pulse
+    set pins, 3
+    out x, 8
+hold:
+    jmp x-- hold
+    mov isr, null
+    push block
+.wrap
+
+.program hb_read
+.wrap_target
+    pull block
+    out pindirs, 12      ; release data, retain control OE, BEFORE /CSR
+    out pins, 12
+    pull block
+    out x, 8
+setup:
+    jmp x-- setup
+    set pins, 2          ; /CSR=0, /CSW=1
+    out x, 8
+presample:
+    jmp x-- presample
+    in pins, 8           ; sample while the target is actively driving
+    out x, 8
+postsample:
+    jmp x-- postsample
+    set pins, 3
+    out x, 8
+hold:
+    jmp x-- hold
+    push block
+.wrap
+
+.program hb_counter
+.wrap_target
+    wait 0 pin 0
+    wait 1 pin 0
+    jmp x-- 0
+.wrap
+
+.program hb_trace
+    wait 0 gpio 12      ; patched to selected trigger pin before arming
+.wrap_target
+    in pins, 18         ; GP4..GP21
+    push block
+.wrap
+
+; Raw timing experiments: two FIFO words per event. First is pins[11:0]
+; and all OE[23:12], second is delay[11:0]. Pin updates are (8+delay)
+; ticks apart. Sample at update+5+delay.
+.program hb_events
+.wrap_target
+    pull block
+    out pins, 12
+    out pindirs, 12
+    pull block
+    out x, 12
+delay:
+    jmp x-- delay
+    in pins, 8
+    push block
+.wrap

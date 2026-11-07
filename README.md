@@ -77,8 +77,8 @@ python host/pico9918_probe.py --port COM10 --output functional.json test --model
 python host/pico9918_probe.py --port COM10 off
 ```
 
-`arm manual` instead of `arm switch` if the target is powered through the VBUS
-jumper rather than the transistor switch.
+`arm manual` instead of `arm switch` only on the hand-wired prototype, when the
+target is powered through its VBUS jumper; on the PCB it leaves the target off.
 
 ## Two things that will waste your afternoon
 

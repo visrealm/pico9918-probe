@@ -18,21 +18,31 @@ bool hb_set_timing(hb_timing_t t) { timing=t; ++calls; return true; }
 bool hb_drive(unsigned m,bool f) { (void)m;(void)f; ++calls; return true; }
 bool hb_reset(unsigned ms) { (void)ms; ++calls; return true; }
 void hb_diag(hb_diag_t *d) { memset(d,0,sizeof(*d)); }
+void hb_rails(hb_rails_t *r) { memset(r,0,sizeof(*r)); }
 bool hb_hold(unsigned pin, bool high) { (void)pin; (void)high; ++calls; return true; }
 bool hb_transfer(bool read,unsigned port,uint8_t *data,unsigned count) {
     assert(port<4 && count && count<=256); ++calls;
     if(read) memset(data,0xa5,count);
     return true;
 }
-bool hb_stress(bool r,unsigned n,uint32_t s,uint32_t *errors,uint32_t *first) {
-    (void)r;(void)s; assert(n && n<=16384); ++calls; *errors=3; *first=123; return true;
+bool hb_stress(bool r,unsigned n,uint32_t s,unsigned repeat,uint32_t *passes,uint32_t *errors,uint32_t *first) {
+    (void)r;(void)s; assert(n && n<=16384 && repeat); ++calls;
+    *passes=repeat-1; *errors=3; *first=123; return true;
+}
+uint32_t hb_clock_hz(void) { return 200000000; }
+uint32_t hb_swclk_hz(void) { return 10000000; }
+bool hb_pulse(uint32_t bus,unsigned rest,unsigned excursion,unsigned pre,unsigned width,
+              unsigned post,unsigned divider,unsigned repeat,uint8_t *sample) {
+    (void)bus; assert(rest && rest<=3 && excursion && excursion<=3);
+    assert(pre && width && post && divider && divider<=64 && repeat);
+    ++calls; *sample=0x5a; return true;
 }
 bool hb_powerup(unsigned off,unsigned timeout,unsigned reset,uint32_t seed,hb_boot_result_t *r) {
     (void)seed; assert(off>=100 && off<=10000 && timeout>reset && timeout<=10000 && reset<=1000);
     ++calls; memset(r,0,sizeof(*r));r->ready=true;r->reset_released_us=10000;r->first_success_end_us=12345;return true;
 }
-bool hb_events(const uint32_t *e,uint8_t *s,unsigned n,unsigned d) {
-    (void)e; assert(n && n<=64 && d && d<=64); ++calls; memset(s,0x55,n); return true;
+bool hb_events(const uint32_t *e,uint8_t *s,unsigned n,unsigned d,unsigned repeat) {
+    (void)e; assert(n && n<=64 && d && d<=64 && repeat); ++calls; memset(s,0x55,n); return true;
 }
 bool hb_clocks(unsigned ms,uint32_t c[2],uint32_t *e) { (void)ms; ++calls; c[0]=3;c[1]=4;*e=1000;return true; }
 bool hb_wait_int(bool h,unsigned t,uint32_t *e) { (void)h;(void)t; ++calls;*e=1;return true; }
@@ -60,11 +70,21 @@ int main(void) {
       "1 CLOCKS 0", "1 CLOCKS 1001", "1 ARM banana", "1 OFF 1 2 3 4 5 6 7 8",
       "1 BOOT 99 2000 10 1", "1 BOOT 10001 2000 10 1", "1 BOOT 1000 10001 10 1",
       "1 BOOT 1000 2000 1001 1", "1 BOOT 1000 10 10 1", "1 BOOT 1000 2000 10 4294967296",
-      "1 BOOT 1000 2000 10 1"}; // last valid syntax is refused with manual power
+      "1 BOOT 1000 2000 10 1", // last valid syntax is refused with manual power
+      "1 EVENTS 1 00000300 0", "1 STRESS 0 16 1 0",
+      "1 PULSE 1 3 2 20 1 20 1 0000", "1 PULSE 1 3 2 20 1 20 1 zzzzzzzz",
+      "1 PULSE 1 3 2 20 1 20 00000000", "1 PULSE x 3 2 20 1 20 1 00000000"};
     for(unsigned i=0;i<sizeof(bad)/sizeof(*bad);++i) {
         calls=0; command(bad[i]); assert(!calls); assert(strstr(response,"\"ok\":false"));
     }
     command("4294967295 INFO"); assert(strstr(response,"4294967295"));
+    assert(strstr(response,"\"protocol\":2") && strstr(response,"\"swclk_hz\":10000000"));
+    // Repeat is optional on both, so protocol 1's own command lines still parse.
+    command("5 EVENTS 1 00000300"); assert(strstr(response,"\"ok\":true"));
+    command("6 EVENTS 1 00000300 4"); assert(strstr(response,"\"ok\":true"));
+    command("7 STRESS 1 16 1 8"); assert(strstr(response,"\"passes\":7"));
+    assert(strstr(response,"\"attempts\":8"));
+    command("8 PULSE 1 3 2 20 1 20 100 000ff300"); assert(strstr(response,"\"data\":\"5a\""));
     command("1 READ 3 256"); assert(strstr(response,"\"ok\":true")); assert(strlen(response)>512);
     command("2 DUMP 0 128"); assert(strlen(response)>1024);
     command("3 STRESS 1 16384 4294967295"); assert(strstr(response,"\"errors\":3"));

@@ -58,6 +58,8 @@ struct _probe {
 
 static struct _probe probe;
 
+static uint32_t swclk_hz;
+
 void probe_set_swclk_freq(uint freq_khz) {
         uint clk_sys_freq_khz = clock_get_hz(clk_sys) / 1000;
         probe_info("Set swclk freq %dKHz sysclk %dkHz\n", freq_khz, clk_sys_freq_khz);
@@ -69,7 +71,13 @@ void probe_set_swclk_freq(uint freq_khz) {
             divider = 65535;
 
         pio_sm_set_clkdiv_int_frac(pio0, PROBE_SM, divider, 0);
+        // The integer divider and the program's four cycles per SWCLK mean the rate
+        // asked for is rarely the rate delivered, and the gap is large: at 125 MHz a
+        // requested 10 MHz came out at 7.8125. Record what it actually is.
+        swclk_hz = clock_get_hz(clk_sys) / (divider * 4);
 }
+
+uint32_t probe_swclk_freq_hz(void) { return swclk_hz; }
 
 void probe_assert_reset(bool state)
 {

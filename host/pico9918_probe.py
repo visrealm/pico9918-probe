@@ -8,7 +8,14 @@ import sys
 import time
 from pathlib import Path
 
-SAFE = (32, 125, 125, 1)
+TICK_NS = 5
+# Conservative transfer timing, in ticks: 255 ns setup, 1 us pulse, 1 us hold. The
+# nanoseconds are the point, so these track the tick rather than staying put.
+SAFE = (51, 200, 200, 1)
+# The sequencer's own program length, so the shortest event, and the field width of
+# the duration that sits on top of it.
+EVENT_FLOOR = 5
+EVENT_CEILING = EVENT_FLOOR + 255
 
 
 class ProbeError(RuntimeError):
@@ -87,24 +94,29 @@ class Probe:
 
 
 def event(duration, *, data=0, oe=False, csr=1, csw=1, port=0):
-    """Output-to-next-output duration in PIO ticks; sample duration-3 after output.
+    """Output-to-next-output duration in PIO ticks; sample duration-1 after output.
+
+    The sequencer updates pins on an event's first tick and samples on its last,
+    so an event cannot be shorter than the five instructions that takes. Longer
+    than EVENT_CEILING is several consecutive events with identical pins.
 
     These are PIO instruction times, not calibrated target-pad measurements.
     Data direction changes one instruction after output value changes.
     """
-    if not 8 <= duration <= 4103 or not 0 <= data <= 255 or not 0 <= port <= 3:
-        raise ValueError("event duration 8..4103, data 0..255, port 0..3 required")
+    if not EVENT_FLOOR <= duration <= EVENT_CEILING or not 0 <= data <= 255 or not 0 <= port <= 3:
+        raise ValueError("event duration %d..%d, data 0..255, port 0..3 required"
+                         % (EVENT_FLOOR, EVENT_CEILING))
     if not (csr or csw) or (not csr and oe):
         raise ValueError("bus contention")
     pins = data | (csr << 8) | (csw << 9) | ((port & 1) << 10) | ((not (port & 2)) << 11)
-    return pins | ((255 if oe else 0) << 12) | ((duration-8) << 20)
+    return pins | ((255 if oe else 0) << 12) | ((duration-EVENT_FLOOR) << 20)
 
 
 def write_wave(value, arrival, hold, pulse=125):
     """Poison -> valid at signed offset from /CSW assertion -> poison after hold.
 
     Negative arrival tests setup before assertion; positive tests late data.
-    Hold is relative to /CSW deassertion. Every segment must be >=8 ticks.
+    Hold is relative to /CSW deassertion. Every segment must be >=EVENT_FLOOR ticks.
     """
     poison = value ^ 255
     words = [event(32, data=poison, oe=True)]
@@ -127,8 +139,8 @@ def read_wave(sample, pulse=125):
     Late samples may intentionally observe a released/floating bus.
     """
     words = [event(32)]
-    if sample <= pulse-3:
-        duration = sample+3
+    if sample <= pulse-1:
+        duration = sample+1
         words.append(event(duration, csr=0))
         selected = 1
         remainder = pulse-duration
@@ -137,7 +149,7 @@ def read_wave(sample, pulse=125):
         words.append(event(32))
     else:
         words.append(event(pulse, csr=0))
-        words.append(event(sample-pulse+3))
+        words.append(event(sample-pulse+1))
         selected = 2
     return words, selected
 
@@ -224,7 +236,7 @@ def burst_trial(probe, timing, direction, repetitions, length, seed):
         if first is None and result["errors"]:
             first = {"repetition": repetition, **result}
         tested += length
-    period_ns = sum(timing[:3])*timing[3]*8
+    period_ns = sum(timing[:3])*timing[3]*TICK_NS
     return {"direction": direction, "timing_ticks": timing, "period_ns": period_ns,
             "burst_bytes_per_second": 1e9/period_ns, "tested_bytes": tested,
             "errors": errors, "first_failure": first, "pass": errors == 0}
@@ -279,7 +291,7 @@ def edges(probe, args):
                         failures += 1
                         if first is None:
                             first = {"expected": datum, "actual": actual, "repetition": repetition}
-            row = {"axis": args.axis, "offset_ticks": value, "offset_ns": value*args.divider*8,
+            row = {"axis": args.axis, "offset_ticks": value, "offset_ns": value*args.divider*TICK_NS,
                    "pulse_ticks": args.pulse, "divider": args.divider,
                    "tested_bytes": tested, "errors": failures, "first_failure": first, "pass": failures == 0}
             rows.append(row)
@@ -339,7 +351,7 @@ def capture(probe, args):
             lines.append(f"#{sample*16*args.divider}")
             lines += [f"{(word>>i)&1}{chr(33+i)}" for i in range(18)]
         Path(args.vcd).write_text("\n".join(lines)+"\n", encoding="ascii")
-        return {"vcd": args.vcd, "samples": len(words), "sample_period_ns": 16*args.divider}
+        return {"vcd": args.vcd, "samples": len(words), "sample_period_ns": 2*TICK_NS*args.divider}
     finally:
         probe.command("CANCEL")
 
@@ -386,14 +398,14 @@ def main():
         p.add_argument("--repetitions", type=int, default=4)
         p.add_argument("--seed", type=int, default=9918)
         p.add_argument("--divider", type=int, default=1)
-        p.add_argument("--pulse", type=int, default=125)
-        p.add_argument("--hold", type=int, default=32 if name == "edges" else 125)
+        p.add_argument("--pulse", type=int, default=SAFE[1])
+        p.add_argument("--hold", type=int, default=SAFE[0] if name == "edges" else SAFE[2])
         if name == "sweep":
-            p.add_argument("--setup", type=int, default=32)
+            p.add_argument("--setup", type=int, default=SAFE[0])
             p.add_argument("--bytes", type=int, default=16384)
             p.add_argument("--direction", choices=["read", "write", "both"], default="both")
         else:
-            p.add_argument("--arrival", type=int, default=-32)
+            p.add_argument("--arrival", type=int, default=-SAFE[0])
     cap = sub.add_parser("capture")
     cap.add_argument("--samples", type=int, default=1024)
     cap.add_argument("--divider", type=int, default=1)

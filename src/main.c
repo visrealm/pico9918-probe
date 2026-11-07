@@ -69,6 +69,17 @@ TaskHandle_t dap_taskhandle, tud_taskhandle, mon_taskhandle;
 
 static int was_configured;
 
+#ifdef PICO9918_HOST_BUS
+void rail_mon(void *ptr)
+{
+    TickType_t wake = xTaskGetTickCount();
+    for (;;) {
+        xTaskDelayUntil(&wake, 100);
+        hb_sample_rails();
+    }
+}
+#endif
+
 void dev_mon(void *ptr)
 {
     uint32_t sof[3];
@@ -150,8 +161,9 @@ void usb_thread(void *ptr)
 
 int main(void) {
 #ifdef PICO9918_HOST_BUS
-    // Integer PIO tick = 8 ns; shared with the timing report and trace decoder.
-    set_sys_clock_khz(125000, true);
+    // Integer PIO tick, shared with the timing report and trace decoder. See
+    // HB_SYS_CLOCK_KHZ for why this number and no other.
+    set_sys_clock_khz(HB_SYS_CLOCK_KHZ, true);
 #endif
     // Declare pins in binary information
     bi_decl_config();
@@ -175,6 +187,12 @@ int main(void) {
         xTaskCreate(dap_thread, "DAP", 1024, NULL, DAP_TASK_PRIO, &dap_taskhandle);
         vTaskCoreAffinitySet(uart_taskhandle, (1 << 0));
         vTaskCoreAffinitySet(dap_taskhandle, (1 << 1));
+
+        // LOAD-BEARING: core 1, above the DAP thread. The bus thread owns core 0 and
+        // spins for the length of a transfer, so a sampler sharing that core would be
+        // starved over exactly the window a sag has to show up in.
+        xTaskCreate(rail_mon, "RAIL", configMINIMAL_STACK_SIZE, NULL, TUD_TASK_PRIO, &mon_taskhandle);
+        vTaskCoreAffinitySet(mon_taskhandle, (1 << 1));
 #endif
         xTaskCreate(usb_thread, "TUD", configMINIMAL_STACK_SIZE, NULL, TUD_TASK_PRIO, &tud_taskhandle);
 #if (configNUMBER_OF_CORES > 1)

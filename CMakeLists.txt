@@ -115,6 +115,7 @@ target_link_libraries(debugprobe PRIVATE
         hardware_dma
         hardware_irq
         hardware_clocks
+        hardware_adc
         FreeRTOS-Kernel
         FreeRTOS-Kernel-Heap1
 )

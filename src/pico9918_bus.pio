@@ -60,18 +60,51 @@ hold:
     push block
 .wrap
 
-; Raw timing experiments: two FIFO words per event. First is pins[11:0]
-; and all OE[23:12], second is delay[11:0]. Pin updates are (8+delay)
-; ticks apart. Sample at update+5+delay.
+; Raw timing experiments: one FIFO word per event, pins[11:0] | dirs[23:12] |
+; duration[31:24]. Autopull at 32 refills exactly at the wrap and autopush at 8
+; returns the sample, so neither PULL nor PUSH costs an instruction.
+;
+; LOAD-BEARING: five instructions means an event is 5+duration ticks. At 200 MHz
+; that is the only reason the datasheet's 30, 100 and 200 ns are representable at
+; all - 6, 20 and 40 ticks exactly. An extra instruction here raises the floor
+; above 30 ns and makes the conformance gate untestable rather than merely coarse.
+;
+; The 12-bit pindirs write is also load-bearing. Narrowing it to the 8 data pins
+; releases GP12-GP15 and drops the bus.
 .program hb_events
 .wrap_target
-    pull block
     out pins, 12
     out pindirs, 12
-    pull block
-    out x, 12
+    out x, 8
 delay:
     jmp x-- delay
     in pins, 8
-    push block
 .wrap
+
+; One strobe excursion of runtime width against an otherwise static bus, for the
+; glitch-rejection sweeps. Both levels are side-set, so the same program covers a
+; LOW pulse that must not start an access and a HIGH excursion inside an asserted
+; strobe that must not end one.
+;
+; Every side-set field here is patched before arming: the resting level on all of
+; them, the excursion level on the one marked below. `jmp x--` with x = 0 still
+; executes once, so the narrowest excursion is a single cycle, 5 ns at 200 MHz,
+; comfortably under both the ~4 ns the target's synchroniser needs and the 35.7 ns
+; it confirms a strobe over.
+.program hb_pulse
+.side_set 2
+    pull block          side 0
+    out pins, 12        side 0
+    out pindirs, 12     side 0
+    pull block          side 0
+    out x, 10           side 0
+pre:
+    jmp x-- pre         side 0
+    out x, 10           side 0
+public excursion:
+    jmp x-- excursion   side 0      ; patched to the excursion level
+    out x, 10           side 0
+post:
+    jmp x-- post        side 0
+    in pins, 8          side 0
+    push block          side 0

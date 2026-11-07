@@ -6,8 +6,15 @@
 #define PROBE_PIN_SWCLK 2
 #define PROBE_PIN_SWDIO 3
 // No nRESET wire to the target MCU. GP21 is a separate host-bus reset.
+#ifdef PICO9918_PROBE_W
+#define HB_WL_ON 23
+#define HB_WL_CS 25
+#define PROBE_PRODUCT_STRING "PICO9918 Probe W (CMSIS-DAP)"
+#else
 #define PROBE_USB_CONNECTED_LED 25
+#define HB_SMPS_PS 23
 #define PROBE_PRODUCT_STRING "PICO9918 Probe (CMSIS-DAP)"
+#endif
 #define HB_DATA_BASE 4
 #define HB_CSR 12
 #define HB_CSW 13
@@ -28,7 +35,6 @@
 #define HB_VSYS 29
 #define HB_VSYS_ADC 3
 #define HB_TEMP_ADC 4
-#define HB_SMPS_PS 23
 
 // Worst case for the power switch to bring the target's rail up. Driving a bus pin
 // before it elapses puts 3.3 V into an unpowered target's inputs, which forward biases

@@ -5,7 +5,8 @@ set(CMAKE_BUILD_TYPE RelWithDebInfo)
 option(PICO9918_HOST_BUS "Pico 2 PICO9918 bus fixture (CDC commands instead of UART)" OFF)
 if(PICO9918_HOST_BUS)
     set(DEBUG_ON_PICO ON CACHE BOOL "Build on Pico" FORCE)
-    set(PICO_BOARD pico2 CACHE STRING "Fixture board" FORCE)
+    set(PICO9918_PROBE_BOARD pico2 CACHE STRING "Fixture board: pico2 or pico2_w")
+    set(PICO_BOARD ${PICO9918_PROBE_BOARD} CACHE STRING "Fixture board" FORCE)
 endif()
 
 include(pico_sdk_import.cmake)
@@ -87,9 +88,9 @@ if (DEBUG_ON_PICO)
         set_target_properties(debugprobe PROPERTIES
             OUTPUT_NAME "debugprobe_on_pico"
         )
-    elseif (PICO_BOARD STREQUAL "pico2")
+    elseif (PICO_BOARD STREQUAL "pico2" OR PICO_BOARD STREQUAL "pico2_w")
         set_target_properties(debugprobe PROPERTIES
-            OUTPUT_NAME "debugprobe_on_pico2"
+            OUTPUT_NAME "debugprobe_on_${PICO_BOARD}"
         )
     else ()
         message(SEND_ERROR "Unsupported board ${PICO_BOARD}")
@@ -100,7 +101,12 @@ if(PICO9918_HOST_BUS)
     if(NOT PICO_PLATFORM STREQUAL "rp2350-arm-s")
         message(FATAL_ERROR "PICO9918 fixture requires Pico 2 / rp2350-arm-s")
     endif()
-    set_target_properties(debugprobe PROPERTIES OUTPUT_NAME "debugprobe_pico9918")
+    if(PICO_BOARD STREQUAL "pico2_w")
+        set_target_properties(debugprobe PROPERTIES OUTPUT_NAME "debugprobe_pico9918_w")
+        target_compile_definitions(debugprobe PRIVATE PICO9918_PROBE_W=1)
+    else()
+        set_target_properties(debugprobe PROPERTIES OUTPUT_NAME "debugprobe_pico9918")
+    endif()
 endif()
 
 

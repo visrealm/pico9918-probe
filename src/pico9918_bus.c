@@ -122,9 +122,20 @@ void hb_init(void) {
     // LOAD-BEARING: PWM mode, not power save. ADC_VREF comes off 3V3, so the regulator's
     // ripple scales every reading, and power save ripples in bursts that a running
     // minimum latches onto in preference to any real sag.
+#ifdef HB_SMPS_PS
     gpio_init(HB_SMPS_PS);
     gpio_put(HB_SMPS_PS, 1);
     gpio_set_dir(HB_SMPS_PS, GPIO_OUT);
+#else
+    // TRAP: VSYS shares GP29 with the wireless clock, and reads true only with the
+    // wireless chip unpowered and its chip select held high.
+    gpio_init(HB_WL_ON);
+    gpio_put(HB_WL_ON, 0);
+    gpio_set_dir(HB_WL_ON, GPIO_OUT);
+    gpio_init(HB_WL_CS);
+    gpio_put(HB_WL_CS, 1);
+    gpio_set_dir(HB_WL_CS, GPIO_OUT);
+#endif
 
     // TRAP: adc_gpio_init is what clears the pad's reset-state isolation and pull-down
     // on RP2350, so an analogue pin left alone reads zero whatever is on it. That is

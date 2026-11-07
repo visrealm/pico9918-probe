@@ -3,7 +3,8 @@
 **Superseded by the rev 1.0 PCB**, whose schematic is
 [`pcb-v1-0-schematic.png`](pcb-v1-0-schematic.png). The PCB keeps every GPIO
 assignment below, replaces both power options with a TPS22919 load switch on
-GP22, and adds a rail sense on GP26. It fits no /RST pull-up. Everything after
+GP22, and adds a rail sense on GP26. It fits no /RST pull-up: the firmware drives
+GP21 push-pull, which supersedes the open-drain warning below. Everything after
 this paragraph describes the hand-wired prototype.
 
 [Two-page printable wiring diagram](prototype-wiring.pdf) ·

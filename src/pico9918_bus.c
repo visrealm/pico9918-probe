@@ -79,8 +79,8 @@ static void reset_assert(void) {
 }
 
 static void reset_release(void) {
-    gpio_set_dir(HB_RESET,GPIO_IN);
-    gpio_disable_pulls(HB_RESET);
+    gpio_put(HB_RESET,1);
+    gpio_set_dir(HB_RESET,GPIO_OUT);
 }
 
 void hb_diag(hb_diag_t *d) {

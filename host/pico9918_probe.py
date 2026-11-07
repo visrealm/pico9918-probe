@@ -443,7 +443,7 @@ def main():
         connection.reset_input_buffer()
         probe = Probe(connection)
         info = probe.command("INFO")
-        if info.get("board") != "pico2-pico9918" or info.get("protocol") != 1:
+        if info.get("board") != "pico2-pico9918" or info.get("protocol") != 2:
             raise ProbeError("unexpected probe firmware")
         if args.action in ("test", "sweep", "edges", "capture") and not probe.command("STATE")["armed"]:
             raise ProbeError("arm manual or arm switch first")
